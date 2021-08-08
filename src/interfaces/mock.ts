@@ -14,7 +14,6 @@ export interface MockData {
 }
 
 export interface CreateUserFormData {
-    username: string
     title: string
     content: string
 }

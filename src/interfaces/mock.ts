@@ -23,3 +23,7 @@ export interface UpdateUserFormData {
     title: string
     content: string
 }
+
+export interface SignUpFormData {
+    name: string
+}

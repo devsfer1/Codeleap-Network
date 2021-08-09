@@ -1,9 +1,18 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Text, Container } from '@chakra-ui/react'
 
-export function PagesHomeList(): JSX.Element {
+import { UserData } from '../../interfaces/mock'
+import { Post } from '../Post'
+
+interface PagesHomeListProps {
+    posts: UserData[] | undefined
+}
+
+export function PagesHomeList({ posts }: PagesHomeListProps): JSX.Element {
     return (
-        <Flex>
-            <Text>Olá mundo</Text>
-        </Flex>
+        <>
+            {posts?.map(item => (
+                <Post post={item} />
+            ))}
+        </>
     )
 }

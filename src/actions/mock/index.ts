@@ -4,13 +4,13 @@ import { serviceErrorHandler } from '../../utils/helpers'
 import { MockData, UserData, CreateUserFormData, UpdateUserFormData } from '../../interfaces/mock'
 
 interface MockServicesProps {
-    _getAll(): Promise<MockData[]>
+    _getAll(): Promise<MockData>
     _create(values: CreateUserFormData): Promise<UserData>
     _update(values: UpdateUserFormData, id: number): Promise<UserData>
     _delete(id: number): Promise<void>
 }
 
-const _getAll = async(): Promise<MockData[]> => {
+const _getAll = async(): Promise<MockData> => {
     const { data } = await api.get('')
 
     return data

@@ -10,7 +10,7 @@ export interface MockData {
     count: number
     next: string
     previous: null
-    results: [UserData]
+    results: UserData[]
 }
 
 export interface CreateUserFormData {

@@ -6,18 +6,19 @@ import { Header } from '../../components/Header'
 import { PagesHomeCreate } from '../../components/Create'
 import { PagesHomeList } from '../../components/List'
 
-import { UserData } from '../../interfaces/mock'
+import { UserData, CreateFormData } from '../../interfaces/mock'
 
 interface PagesMainProps {
     posts: UserData[] | undefined
+    handleCreatePost(data: CreateFormData): void
 }
 
-export function PagesMain({ posts }: PagesMainProps): JSX.Element {
+export function PagesMain({ posts, handleCreatePost }: PagesMainProps): JSX.Element {
     return (
         <>
             <Header />
             <Container maxW="container.xl" py="6">
-                <PagesHomeCreate />
+                <PagesHomeCreate handleCreatePost={handleCreatePost} />
                 <PagesHomeList posts={posts} />
             </Container>
         </>

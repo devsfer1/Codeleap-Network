@@ -13,7 +13,7 @@ export interface MockData {
     results: UserData[]
 }
 
-export interface CreateUserFormData {
+export interface CreateFormData {
     title: string
     content: string
 }

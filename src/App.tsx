@@ -12,12 +12,20 @@ const App: React.FC = () => {
     const [posts, setPosts] = useState<UserData[]>()
     const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
-    const { _getAll } = mockServices()
+    const { _getAll, _create } = mockServices()
 
     const handleSignUp = (data: SignUpFormData | undefined) => {
         setUser(data?.name)
         setLoggedIn(true)
     }
+
+    const handleCreatePost = useCallback(async (data) => {
+        try {
+            await _create(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }, [_create])
 
     const handleGetPosts = useCallback(async () => {
         const data = await _getAll()
@@ -34,7 +42,7 @@ const App: React.FC = () => {
     return (
         <Flex bg="#000000" direction="column" minH="100vh">
             {!loggedIn && <PagesSignUp onSubmit={handleSignUp} />}
-            {loggedIn && <PagesMain posts={posts} />}
+            {loggedIn && <PagesMain posts={posts} handleCreatePost={handleCreatePost} />}
         </Flex>
     )
 }

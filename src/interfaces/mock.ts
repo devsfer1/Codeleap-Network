@@ -18,6 +18,12 @@ export interface CreateFormData {
     content: string
 }
 
+export interface CreateData {
+    title: string
+    content: string
+    username: string | undefined
+}
+
 export interface UpdateUserFormData {
     title: string
     content: string

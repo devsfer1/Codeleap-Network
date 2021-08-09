@@ -8,7 +8,7 @@ import mockServices from './actions/mock'
 import { SignUpFormData, UserData, MockData } from './interfaces/mock'
 
 const App: React.FC = () => {
-    const [user, setUser] = useState<string>()
+    const [user, setUser] = useState<string | undefined>()
     const [posts, setPosts] = useState<UserData[]>()
     const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
@@ -21,11 +21,11 @@ const App: React.FC = () => {
 
     const handleCreatePost = useCallback(async (data) => {
         try {
-            await _create(data)
+            await _create(data, user)
         } catch (err) {
             console.log(err)
         }
-    }, [_create])
+    }, [_create, user])
 
     const handleGetPosts = useCallback(async () => {
         const data = await _getAll()

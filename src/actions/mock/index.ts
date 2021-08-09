@@ -1,11 +1,11 @@
 import { api } from '../api'
 import { serviceErrorHandler } from '../../utils/helpers'
 
-import { MockData, UserData, CreateFormData, UpdateUserFormData } from '../../interfaces/mock'
+import { MockData, UserData, CreateData, UpdateUserFormData } from '../../interfaces/mock'
 
 interface MockServicesProps {
     _getAll(): Promise<MockData>
-    _create(values: CreateFormData): Promise<UserData>
+    _create(values: CreateData, username: string | undefined): Promise<UserData>
     _update(values: UpdateUserFormData, id: number): Promise<UserData>
     _delete(id: number): Promise<void>
 }
@@ -16,9 +16,11 @@ const _getAll = async(): Promise<MockData> => {
     return data
 }
 
-const _create = async(values: CreateFormData): Promise<UserData> => {
+const _create = async(values: CreateData, username: string | undefined): Promise<UserData> => {
     try {
         const obj = { ...values }
+
+        obj.username = username
 
         const { data } = await api.post('', obj)
 

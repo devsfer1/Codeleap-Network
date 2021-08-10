@@ -15,8 +15,6 @@ export function Post({ post }: PostProps): JSX.Element {
 
     const { user } = useSelector(selectUser)
 
-    console.log(user)
-
     const {
         isOpen: isOpenEdit,
         onOpen: onOpenEdit,

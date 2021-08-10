@@ -4,7 +4,6 @@ import {
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
     ModalBody,
     ModalFooter,
     ModalCloseButton,
@@ -13,26 +12,28 @@ import {
 interface ModalDeleteProps {
     openDelete: boolean
     closeDelete(): void
+    handleDelete(): void
 }
 
 export default function ModalDelete({
     openDelete,
-    closeDelete
+    closeDelete,
+    handleDelete
 
 }: ModalDeleteProps): JSX.Element {
     return (
         <Modal isOpen={openDelete} onClose={closeDelete}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Modal Delete</ModalHeader>
+
                 <ModalCloseButton />
-                <ModalBody>Teste</ModalBody>
+                <ModalBody>Are you sure want to delete this item?</ModalBody>
 
                 <ModalFooter>
                     <Button colorScheme="blue" mr={3} onClick={closeDelete}>
-                        Close
+                        Cancel
                     </Button>
-                    <Button variant="ghost">Secondary Action</Button>
+                    <Button variant="ghost" onClick={handleDelete}>Ok</Button>
                 </ModalFooter>
             </ModalContent>
         </Modal>

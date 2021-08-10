@@ -44,7 +44,7 @@ const _update = async(values: UpdateUserFormData, id: number): Promise<UserData>
 
 const _delete = async(id: number): Promise<void> => {
     try {
-        const { data } = await api.delete(`${id}`)
+        const { data } = await api.delete(`${id}/`)
 
         return data
     } catch (err) {

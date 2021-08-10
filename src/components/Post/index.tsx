@@ -1,17 +1,4 @@
-import {
-    Flex,
-    Text,
-    Box,
-    Button,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure
-} from '@chakra-ui/react'
+import { Flex, Text, Box, Button, useDisclosure } from '@chakra-ui/react'
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons'
 import ModalDelete from '../Modal/Delete'
 import ModalEdit from '../Modal/Edit'
@@ -20,9 +7,11 @@ import { UserData } from '../../interfaces/mock'
 
 interface PostProps {
     post: UserData
+    user: string | undefined
+    handleDelete(id: number): void
 }
 
-export function Post({ post }: PostProps): JSX.Element {
+export function Post({ post, user, handleDelete }: PostProps): JSX.Element {
     const {
         isOpen: isOpenEdit,
         onOpen: onOpenEdit,
@@ -45,8 +34,13 @@ export function Post({ post }: PostProps): JSX.Element {
             borderRadius="8px"
             boxShadow="lg"
         >
-            <ModalDelete openDelete={isOpenDelete} closeDelete={onCloseDelete} />
+            <ModalDelete
+                openDelete={isOpenDelete}
+                handleDelete={() => {handleDelete(post.id)}}
+                closeDelete={onCloseDelete}
+            />
             <ModalEdit openDelete={isOpenEdit} closeDelete={onCloseEdit} />
+
             <Flex
                 bg="#1F1F1F"
                 py="6"
@@ -56,12 +50,16 @@ export function Post({ post }: PostProps): JSX.Element {
             >
                 <Text color="#C6E6F2">{post.title}</Text>
                 <Flex>
-                    <Button variant="unstyled" onClick={onOpenEdit}>
-                        <EditIcon color="#C6E6F2" />
-                    </Button>
-                    <Button variant="unstyled" onClick={onOpenDelete}>
-                        <DeleteIcon color="#C6E6F2" />
-                    </Button>
+                    {user === post.username && (
+                        <>
+                            <Button variant="unstyled" onClick={onOpenEdit}>
+                                <EditIcon color="#C6E6F2" />
+                            </Button>
+                            <Button variant="unstyled" onClick={onOpenDelete}>
+                                <DeleteIcon color="#C6E6F2" />
+                            </Button>
+                        </>
+                    )}
                 </Flex>
             </Flex>
             <Flex direction="column" bg="#141414" py="6" px="6">

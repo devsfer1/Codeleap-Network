@@ -1,17 +1,25 @@
-import { Flex, Text, Container } from '@chakra-ui/react'
-
 import { UserData } from '../../interfaces/mock'
 import { Post } from '../Post'
 
 interface PagesHomeListProps {
     posts: UserData[] | undefined
+    user: string | undefined
+    handleDelete(id: number): void
 }
 
-export function PagesHomeList({ posts }: PagesHomeListProps): JSX.Element {
+export function PagesHomeList({
+    posts,
+    user,
+    handleDelete
+}: PagesHomeListProps): JSX.Element {
     return (
         <>
             {posts?.map(item => (
-                <Post post={item} />
+                <Post
+                    post={item}
+                    user={user}
+                    handleDelete={handleDelete}
+                />
             ))}
         </>
     )

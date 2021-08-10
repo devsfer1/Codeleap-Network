@@ -2,16 +2,21 @@ import { Flex, Text, Box, Button, useDisclosure } from '@chakra-ui/react'
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons'
 import ModalDelete from '../Modal/Delete'
 import ModalEdit from '../Modal/Edit'
+import { useSelector } from 'react-redux'
+import { selectUser } from '../../redux/userSlice'
 
 import { UserData } from '../../interfaces/mock'
 
 interface PostProps {
     post: UserData
-    user: string | undefined
-    handleDelete(id: number): void
-}
 
-export function Post({ post, user, handleDelete }: PostProps): JSX.Element {
+}
+export function Post({ post }: PostProps): JSX.Element {
+
+    const { user } = useSelector(selectUser)
+
+    console.log(user)
+
     const {
         isOpen: isOpenEdit,
         onOpen: onOpenEdit,
@@ -36,7 +41,6 @@ export function Post({ post, user, handleDelete }: PostProps): JSX.Element {
         >
             <ModalDelete
                 openDelete={isOpenDelete}
-                handleDelete={() => {handleDelete(post.id)}}
                 closeDelete={onCloseDelete}
             />
             <ModalEdit openDelete={isOpenEdit} closeDelete={onCloseEdit} />

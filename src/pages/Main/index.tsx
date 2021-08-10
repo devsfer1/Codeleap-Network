@@ -9,22 +9,16 @@ import { PagesHomeList } from '../../components/List'
 import { UserData, CreateFormData } from '../../interfaces/mock'
 
 interface PagesMainProps {
-    posts: UserData[] | undefined
     handleCreatePost(data: CreateFormData): void
-    user: string | undefined
-    handleDelete(id: number): void
 }
 
-export function PagesMain({ posts, user, handleCreatePost, handleDelete }: PagesMainProps): JSX.Element {
+export function PagesMain({ handleCreatePost }: PagesMainProps): JSX.Element {
     return (
         <>
             <Header />
             <Container maxW="container.xl" py="6">
                 <PagesHomeCreate handleCreatePost={handleCreatePost} />
                 <PagesHomeList
-                    posts={posts}
-                    user={user}
-                    handleDelete={handleDelete}
                 />
             </Container>
         </>

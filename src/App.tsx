@@ -6,16 +6,21 @@ import { PagesSignUp } from './pages/Signup'
 
 import mockServices from './actions/mock'
 import { SignUpFormData, UserData, MockData } from './interfaces/mock'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUser } from './redux/userSlice'
+import { updatePosts } from './redux/postsSlice'
 
 const App: React.FC = () => {
     const [user, setUser] = useState<string | undefined>()
     const [posts, setPosts] = useState<UserData[]>([])
     const [loggedIn, setLoggedIn] = useState<boolean>(false)
 
+    const dispatch = useDispatch()
+
     const { _getAll, _create, _delete } = mockServices()
 
     const handleSignUp = (data: SignUpFormData | undefined) => {
-        setUser(data?.name)
+        dispatch(updateUser(data?.name))
         setLoggedIn(true)
     }
 
@@ -32,19 +37,8 @@ const App: React.FC = () => {
 
     const handleGetPosts = useCallback(async () => {
         const data = await _getAll()
-
-        setPosts(data.results)
-    }, [_getAll])
-
-    const handleDelete = useCallback(async (id) => {
-        const data = await _delete(id).then(() => {
-            const postsCopy = [...posts]
-
-            const updatedPosts = postsCopy.filter(post => post.id !== id)
-
-            setPosts(updatedPosts)
-        })
-    }, [_delete, posts])
+        dispatch(updatePosts(data.results))
+    }, [_getAll, dispatch])
 
     useEffect(() => {
         handleGetPosts()
@@ -55,10 +49,7 @@ const App: React.FC = () => {
             {!loggedIn && <PagesSignUp onSubmit={handleSignUp} />}
             {loggedIn && (
                 <PagesMain
-                    posts={posts}
                     handleCreatePost={handleCreatePost}
-                    handleDelete={handleDelete}
-                    user={user}
                 />
             )}
         </Flex>

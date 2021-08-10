@@ -15,6 +15,8 @@ interface ModalDeleteProps {
     closeDelete(): void
 }
 
+import { UpdateForm } from '../../Form/Update'
+
 export default function ModalEdit({
     openDelete,
     closeDelete
@@ -23,9 +25,9 @@ export default function ModalEdit({
         <Modal isOpen={openDelete} onClose={closeDelete}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Modal Edit</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>Teste</ModalBody>
+                <UpdateForm />
 
                 <ModalFooter>
                     <Button colorScheme="blue" mr={3} onClick={closeDelete}>

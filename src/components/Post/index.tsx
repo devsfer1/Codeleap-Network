@@ -12,11 +12,11 @@ interface PostProps {
     post: PostData
 }
 export function Post({ post }: PostProps): JSX.Element {
-    const teste = formatDistance(new Date(post.created_datetime), new Date(), {
+    const formatedDate = formatDistance(new Date(post.created_datetime), new Date(), {
         includeSeconds: true
     })
 
-    console.log(teste)
+    console.log(formatedDate)
 
     const { user } = useSelector(selectUser)
 
@@ -77,7 +77,7 @@ export function Post({ post }: PostProps): JSX.Element {
             <Flex direction="column" bg="#141414" py="6" px="6">
                 <Flex justifyContent="space-between" mb="5px">
                     <Text color="#C6E6F2">@{post.username}</Text>
-                    <Text color="#C6E6F2">{`${teste} ago`}</Text>
+                    <Text color="#C6E6F2">{`${formatedDate} ago`}</Text>
                 </Flex>
                 <Text color="#C6E6F2">{post.content}</Text>
             </Flex>

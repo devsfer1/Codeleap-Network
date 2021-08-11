@@ -14,6 +14,7 @@ import { CreateFormData } from '../../../interfaces/post'
 import postServices from '../../../actions/post'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePosts, selectPosts } from '../../../redux/postsSlice'
+import _ from 'lodash'
 
 import { FormInput } from '../Input'
 
@@ -48,7 +49,7 @@ export function EditForm({ id, closeEdit }: EditFormProps): JSX.Element {
         async data => {
             try {
                 await _update(data, id).then(res => {
-                    const postsCopy = [...posts]
+                    let postsCopy = [...posts]
                     const index = postsCopy.findIndex(post => post.id === id)
                     postsCopy[index] = res
                     dispatch(updatePosts(postsCopy))

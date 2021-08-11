@@ -17,6 +17,7 @@ import { selectUser } from '../../../redux/userSlice'
 import { updatePosts, selectPosts } from '../../../redux/postsSlice'
 
 import { FormInput } from '../Input'
+import _ from 'lodash'
 
 const createFormSchema: yup.SchemaOf<CreateFormData> = yup.object().shape({
     title: yup.string().required('Title required'),
@@ -36,9 +37,12 @@ export function CreateForm(): JSX.Element {
         async data => {
             try {
                 await _create(data, user).then(res => {
-                    const postsCopy = [...posts]
+                    let postsCopy = [...posts]
                     postsCopy.push(res)
-                    dispatch(updatePosts(postsCopy))
+                    postsCopy = _.sortBy(postsCopy, function (dateObj) {
+                        return new Date(dateObj.created_datetime)
+                    })
+                    dispatch(updatePosts(postsCopy.reverse()))
 
                     toast({
                         title: `Post successfully created`,

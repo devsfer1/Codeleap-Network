@@ -16,8 +16,6 @@ export function Post({ post }: PostProps): JSX.Element {
         includeSeconds: true
     })
 
-    console.log(formatedDate)
-
     const { user } = useSelector(selectUser)
 
     const {

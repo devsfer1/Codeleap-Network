@@ -1,22 +1,22 @@
 import { api } from '../api'
 import { serviceErrorHandler } from '../../utils/helpers'
 
-import { MockData, UserData, CreateData, UpdateUserFormData } from '../../interfaces/mock'
+import { PostArrayData, PostData, CreateData, UpdatePostFormData } from '../../interfaces/post'
 
-interface MockServicesProps {
-    _getAll(): Promise<MockData>
-    _create(values: CreateData, username: string | undefined): Promise<UserData>
-    _update(values: UpdateUserFormData, id: number): Promise<UserData>
+interface PostServicesProps {
+    _getAll(): Promise<PostArrayData>
+    _create(values: CreateData, username: string | undefined): Promise<PostData>
+    _update(values: UpdatePostFormData, id: number): Promise<PostData>
     _delete(id: number): Promise<void>
 }
 
-const _getAll = async(): Promise<MockData> => {
+const _getAll = async(): Promise<PostArrayData> => {
     const { data } = await api.get('')
 
     return data
 }
 
-const _create = async(values: CreateData, username: string | undefined): Promise<UserData> => {
+const _create = async(values: CreateData, username: string | undefined): Promise<PostData> => {
     try {
         const obj = { ...values }
 
@@ -30,7 +30,7 @@ const _create = async(values: CreateData, username: string | undefined): Promise
     }
 }
 
-const _update = async(values: UpdateUserFormData, id: number): Promise<UserData> => {
+const _update = async(values: UpdatePostFormData, id: number): Promise<PostData> => {
     try {
         const obj = { ...values }
 
@@ -52,11 +52,11 @@ const _delete = async(id: number): Promise<void> => {
     }
 }
 
-const mockServices = (): MockServicesProps => ({
+const postServices = (): PostServicesProps => ({
     _getAll,
     _create,
     _update,
     _delete
 })
 
-export default mockServices
+export default postServices

@@ -10,8 +10,8 @@ import {
     FormLabel,
     useToast
 } from '@chakra-ui/react'
-import { CreateFormData } from '../../../interfaces/mock'
-import mockServices from '../../../actions/mock'
+import { CreateFormData } from '../../../interfaces/post'
+import postServices from '../../../actions/post'
 import { useDispatch, useSelector } from 'react-redux'
 import { selectUser } from '../../../redux/userSlice'
 import { updatePosts, selectPosts } from '../../../redux/postsSlice'
@@ -19,12 +19,12 @@ import { updatePosts, selectPosts } from '../../../redux/postsSlice'
 import { FormInput } from '../Input'
 
 const createFormSchema: yup.SchemaOf<CreateFormData> = yup.object().shape({
-    title: yup.string().required('Título Obrigatório'),
-    content: yup.string().required('Conteúdo Obrigatório')
+    title: yup.string().required('Title required'),
+    content: yup.string().required('Content required')
 })
 
 export function CreateForm(): JSX.Element {
-    const { _create } = mockServices()
+    const { _create } = postServices()
 
     const { user } = useSelector(selectUser)
     const { posts } = useSelector(selectPosts)

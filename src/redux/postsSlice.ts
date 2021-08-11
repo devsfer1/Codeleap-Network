@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from './store'
-import { UserData } from "../interfaces/mock";
+import { PostData } from "../interfaces/post";
 
 export const slice = createSlice({
     name: 'posts',
     initialState: {
-        posts: <UserData[]>[]
+        posts: <PostData[]>[]
     },
     reducers: {
         updatePosts(state, { payload }) {

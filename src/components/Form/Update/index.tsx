@@ -2,13 +2,13 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Flex, Text } from '@chakra-ui/react'
-import { UpdateUserFormData } from '../../../interfaces/mock'
+import { UpdatePostFormData } from '../../../interfaces/post'
 
 import { FormInput } from '../Input'
 
-const updateFormSchema: yup.SchemaOf<UpdateUserFormData> = yup.object().shape({
-    title: yup.string().required('Título Obrigatório'),
-    content: yup.string().required('Conteúdo Obrigatório')
+const updateFormSchema: yup.SchemaOf<UpdatePostFormData> = yup.object().shape({
+    title: yup.string().required('Title required'),
+    content: yup.string().required('Content required')
 })
 
 export function UpdateForm():JSX.Element {
@@ -16,7 +16,7 @@ export function UpdateForm():JSX.Element {
         register,
         handleSubmit,
         formState: { errors, isSubmitting }
-    } = useForm<UpdateUserFormData>({
+    } = useForm<UpdatePostFormData>({
         resolver: yupResolver(updateFormSchema)
     })
 

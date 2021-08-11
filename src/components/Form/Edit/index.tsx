@@ -10,16 +10,16 @@ import {
     FormLabel,
     useToast
 } from '@chakra-ui/react'
-import { CreateFormData } from '../../../interfaces/mock'
-import mockServices from '../../../actions/mock'
+import { CreateFormData } from '../../../interfaces/post'
+import postServices from '../../../actions/post'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePosts, selectPosts } from '../../../redux/postsSlice'
 
 import { FormInput } from '../Input'
 
 const createFormSchema: yup.SchemaOf<CreateFormData> = yup.object().shape({
-    title: yup.string().required('Título Obrigatório'),
-    content: yup.string().required('Conteúdo Obrigatório')
+    title: yup.string().required('Title required'),
+    content: yup.string().required('Content required')
 })
 
 interface EditFormProps {
@@ -28,7 +28,7 @@ interface EditFormProps {
 }
 
 export function EditForm({ id, closeEdit }: EditFormProps): JSX.Element {
-    const { _update } = mockServices()
+    const { _update } = postServices()
 
     const { posts } = useSelector(selectPosts)
 

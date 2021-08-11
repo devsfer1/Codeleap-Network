@@ -1,4 +1,4 @@
-export interface UserData {
+export interface PostData {
     id: number
     username: string
     created_datetime: string
@@ -6,11 +6,11 @@ export interface UserData {
     content: string
 }
 
-export interface MockData {
+export interface PostArrayData {
     count: number
     next: string
     previous: null
-    results: UserData[]
+    results: PostData[]
 }
 
 export interface CreateFormData {
@@ -24,7 +24,7 @@ export interface CreateData {
     username: string | undefined
 }
 
-export interface UpdateUserFormData {
+export interface UpdatePostFormData {
     title: string
     content: string
 }

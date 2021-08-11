@@ -1,4 +1,3 @@
-import * as yup from 'yup'
 import { Flex, Text, Container } from '@chakra-ui/react'
 
 export function Header(): JSX.Element {

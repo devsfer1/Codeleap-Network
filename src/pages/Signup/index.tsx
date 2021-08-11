@@ -1,6 +1,6 @@
 import { Flex, Text, Box } from '@chakra-ui/react'
 import { SignUpForm } from '../../components/Form/Singup'
-import { SignUpFormData } from '../../interfaces/mock'
+import { SignUpFormData } from '../../interfaces/post'
 
 interface PagesSignUpProps {
     onSubmit(data: SignUpFormData): void

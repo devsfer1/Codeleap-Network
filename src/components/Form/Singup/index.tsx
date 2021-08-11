@@ -4,10 +4,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, Flex, Text } from '@chakra-ui/react'
 
 import { FormInput } from '../Input'
-import { SignUpFormData } from '../../../interfaces/mock'
+import { SignUpFormData } from '../../../interfaces/post'
 
 const signUpFormSchema: yup.SchemaOf<SignUpFormData> = yup.object().shape({
-    name: yup.string().required('Nome obrigatório')
+    name: yup.string().required('Name required')
 })
 
 interface SignUpFormProps {

@@ -13,7 +13,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { selectPosts } from '../../../redux/postsSlice'
 import { updatePosts } from '../../../redux/postsSlice'
-import mockServices from '../../../actions/mock'
+import postServices from '../../../actions/post'
 
 interface ModalDeleteProps {
     openDelete: boolean
@@ -30,7 +30,7 @@ export default function ModalDelete({
     const dispatch = useDispatch()
     const toast = useToast()
 
-    const { _delete } = mockServices()
+    const { _delete } = postServices()
 
     const handleDelete = useCallback(
         async id => {

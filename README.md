@@ -37,5 +37,5 @@
 <h2>Links</h2>
 <hr>
 <p>Demonstration: <a href="https://codeleap-network.vercel.app/">https://codeleap-network.vercel.app/ </a></p>
-<p>Repo: <a href="https://github.com/devsfe/Pokedex-v1.0">https://github.com/devsfer1/Codeleap-Network </a></p>
+<p>Repo: <a href="https://github.com/devsfer1/Codeleap-Network">https://github.com/devsfer1/Codeleap-Network </a></p>
 

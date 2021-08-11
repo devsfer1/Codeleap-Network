@@ -38,34 +38,42 @@ export function EditForm({ id, closeEdit }: EditFormProps): JSX.Element {
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors, isSubmitting }
     } = useForm<CreateFormData>({
         resolver: yupResolver(createFormSchema)
     })
 
-    const handleUpdatePost = useCallback(async data => {
-        try {
-            await _update(data, id).then(() => {
-                const postsCopy = [...posts]
-                postsCopy.push(data)
-                dispatch(updatePosts(postsCopy))
+    const handleUpdatePost = useCallback(
+        async data => {
+            try {
+                await _update(data, id).then(res => {
+                    const postsCopy = [...posts]
+                    const index = postsCopy.findIndex(post => post.id === id)
+                    postsCopy[index] = res
+                    dispatch(updatePosts(postsCopy))
 
-                closeEdit()
+                    closeEdit()
 
+                    toast({
+                        title: `Post successfully updated`,
+                        status: 'success',
+                        isClosable: true
+                    })
+                })
+            } catch (err) {
                 toast({
-                    title: `Post successfully updated`,
-                    status: 'success',
+                    title: `An error has occurred, please try again`,
+                    status: 'error',
                     isClosable: true
                 })
-            })
-        } catch (err) {
-            toast({
-                title: `An error has occurred, please try again`,
-                status: 'error',
-                isClosable: true
-            })
-        }
-    }, [_update, dispatch, id, posts, toast])
+            }
+        },
+        [_update, dispatch, id, posts, toast, closeEdit]
+    )
+
+    const titleInput = watch('title')
+    const contentInput = watch('content')
 
     return (
         <Flex
@@ -98,15 +106,24 @@ export function EditForm({ id, closeEdit }: EditFormProps): JSX.Element {
                 name="content"
                 id="content"
             />
-            {errors.content}
+            {!!errors.content && (
+                <Text color="#E53E3E" fontSize="sm" mt="3px">
+                    {errors.content.message}
+                </Text>
+            )}
             <Button
                 type="submit"
                 isLoading={isSubmitting}
                 w="30%"
                 alignSelf="flex-end"
                 mt="25px"
+                isDisabled={
+                    titleInput?.length <= 0 || contentInput?.length <= 0
+                        ? true
+                        : false
+                }
             >
-                <Text>Create</Text>
+                <Text>Save</Text>
             </Button>
         </Flex>
     )

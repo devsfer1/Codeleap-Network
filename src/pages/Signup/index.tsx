@@ -12,7 +12,7 @@ export function PagesSignUp(props: PagesSignUpProps): JSX.Element {
 
     return (
         <Flex alignItems="center" justifyContent="center" height="100vh">
-            <Box w="40%" bg="#141414" py="6" px="6" borderRadius="10px">
+            <Box w={{base: "90%", md: "40%"}} bg="#141414" py="6" px="6" borderRadius="10px">
                 <Text mb="20px" color="#C6E6F2">
                     {' '}
                     Welcome to CodeLeap network!

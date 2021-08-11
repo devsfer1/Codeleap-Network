@@ -35,9 +35,9 @@ export function CreateForm(): JSX.Element {
     const handleCreatePost = useCallback(
         async data => {
             try {
-                await _create(data, user).then(() => {
+                await _create(data, user).then(res => {
                     const postsCopy = [...posts]
-                    postsCopy.push(data)
+                    postsCopy.push(res)
                     dispatch(updatePosts(postsCopy))
 
                     toast({
@@ -60,10 +60,14 @@ export function CreateForm(): JSX.Element {
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors, isSubmitting }
     } = useForm<CreateFormData>({
         resolver: yupResolver(createFormSchema)
     })
+
+    const titleInput = watch('title')
+    const contentInput = watch('content')
 
     return (
         <Flex
@@ -95,13 +99,22 @@ export function CreateForm(): JSX.Element {
                 name="content"
                 id="content"
             />
-            {errors.content}
+            {!!errors.content && (
+                <Text color="#E53E3E" fontSize="sm" mt="3px">
+                    {errors.content.message}
+                </Text>
+            )}
             <Button
                 type="submit"
                 isLoading={isSubmitting}
                 w="30%"
                 alignSelf="flex-end"
                 mt="25px"
+                isDisabled={
+                    titleInput?.length <= 0 || contentInput?.length <= 0
+                        ? true
+                        : false
+                }
             >
                 <Text>Create</Text>
             </Button>

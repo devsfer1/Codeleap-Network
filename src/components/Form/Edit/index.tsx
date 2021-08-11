@@ -13,7 +13,6 @@ import {
 import { CreateFormData } from '../../../interfaces/mock'
 import mockServices from '../../../actions/mock'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectUser } from '../../../redux/userSlice'
 import { updatePosts, selectPosts } from '../../../redux/postsSlice'
 
 import { FormInput } from '../Input'
@@ -23,39 +22,18 @@ const createFormSchema: yup.SchemaOf<CreateFormData> = yup.object().shape({
     content: yup.string().required('Conteúdo Obrigatório')
 })
 
-export function CreateForm(): JSX.Element {
-    const { _create } = mockServices()
+interface EditFormProps {
+    id: number
+    closeEdit(): void
+}
 
-    const { user } = useSelector(selectUser)
+export function EditForm({ id, closeEdit }: EditFormProps): JSX.Element {
+    const { _update } = mockServices()
+
     const { posts } = useSelector(selectPosts)
 
     const dispatch = useDispatch()
     const toast = useToast()
-
-    const handleCreatePost = useCallback(
-        async data => {
-            try {
-                await _create(data, user).then(() => {
-                    const postsCopy = [...posts]
-                    postsCopy.push(data)
-                    dispatch(updatePosts(postsCopy))
-
-                    toast({
-                        title: `Post successfully created`,
-                        status: 'success',
-                        isClosable: true
-                    })
-                })
-            } catch (err) {
-                toast({
-                    title: `An error has occurred, please try again`,
-                    status: 'error',
-                    isClosable: true
-                })
-            }
-        },
-        [_create, user, dispatch, posts, toast]
-    )
 
     const {
         register,
@@ -65,11 +43,35 @@ export function CreateForm(): JSX.Element {
         resolver: yupResolver(createFormSchema)
     })
 
+    const handleUpdatePost = useCallback(async data => {
+        try {
+            await _update(data, id).then(() => {
+                const postsCopy = [...posts]
+                postsCopy.push(data)
+                dispatch(updatePosts(postsCopy))
+
+                closeEdit()
+
+                toast({
+                    title: `Post successfully updated`,
+                    status: 'success',
+                    isClosable: true
+                })
+            })
+        } catch (err) {
+            toast({
+                title: `An error has occurred, please try again`,
+                status: 'error',
+                isClosable: true
+            })
+        }
+    }, [_update, dispatch, id, posts, toast])
+
     return (
         <Flex
             as="form"
             direction="column"
-            onSubmit={handleSubmit(handleCreatePost)}
+            onSubmit={handleSubmit(handleUpdatePost)}
         >
             <FormInput
                 label="Title"
@@ -88,6 +90,7 @@ export function CreateForm(): JSX.Element {
                 Content
             </FormLabel>
             <Textarea
+                aria-label="teste"
                 resize="none"
                 bg="white"
                 placeholder="Content here"

@@ -34,7 +34,7 @@ const _update = async(values: UpdateUserFormData, id: number): Promise<UserData>
     try {
         const obj = { ...values }
 
-        const { data } = await api.patch(`${id}`, obj)
+        const { data } = await api.patch(`${id}/`, obj)
 
         return data
     } catch (err) {

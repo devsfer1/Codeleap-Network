@@ -1,24 +1,32 @@
-import { UserData } from '../../interfaces/mock'
+import React, { useCallback, useEffect } from 'react'
 import { Post } from '../Post'
-import { useSelector } from 'react-redux'
-import { selectPosts } from '../../redux/postsSlice'
+import mockServices from '../../actions/mock'
+import { useSelector, useDispatch } from 'react-redux'
+import { selectPosts, updatePosts } from '../../redux/postsSlice'
 
-interface PagesHomeListProps {
-
-}
-
-export function PagesHomeList({
-
-}: PagesHomeListProps): JSX.Element {
+export function PagesHomeList(): JSX.Element {
 
     const { posts } = useSelector(selectPosts)
+
+    const dispatch = useDispatch()
+
+    const handleGetPosts = useCallback(async () => {
+
+        const { _getAll } = mockServices()
+
+        const data = await _getAll()
+        dispatch(updatePosts(data.results))
+    }, [dispatch])
+
+    useEffect(() => {
+        handleGetPosts()
+    }, [handleGetPosts])
 
     return (
         <>
             {posts?.map(item => (
                 <Post
                     post={item}
-                    
                 />
             ))}
         </>

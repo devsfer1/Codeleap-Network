@@ -40,8 +40,9 @@ export function Post({ post }: PostProps): JSX.Element {
             <ModalDelete
                 openDelete={isOpenDelete}
                 closeDelete={onCloseDelete}
+                id={post.id}
             />
-            <ModalEdit openDelete={isOpenEdit} closeDelete={onCloseEdit} />
+            <ModalEdit openDelete={isOpenEdit} closeDelete={onCloseEdit} id={post.id} />
 
             <Flex
                 bg="#1F1F1F"

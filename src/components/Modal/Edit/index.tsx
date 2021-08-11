@@ -1,11 +1,9 @@
 import React from 'react'
 import {
-    Button,
+    Text,
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
-    ModalBody,
     ModalFooter,
     ModalCloseButton
 } from '@chakra-ui/react'
@@ -13,28 +11,24 @@ import {
 interface ModalDeleteProps {
     openDelete: boolean
     closeDelete(): void
+    id: number
 }
 
-import { UpdateForm } from '../../Form/Update'
+import { EditForm } from '../../Form/Edit'
 
 export default function ModalEdit({
     openDelete,
-    closeDelete
+    closeDelete,
+    id
 }: ModalDeleteProps): JSX.Element {
     return (
-        <Modal isOpen={openDelete} onClose={closeDelete}>
+        <Modal isOpen={openDelete} onClose={closeDelete} size="6xl">
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent bg="#141414" py="10" px="6">
                 <ModalCloseButton />
-                <ModalBody>Teste</ModalBody>
-                <UpdateForm />
-
-                <ModalFooter>
-                    <Button colorScheme="blue" mr={3} onClick={closeDelete}>
-                        Close
-                    </Button>
-                    <Button variant="ghost">Secondary Action</Button>
-                </ModalFooter>
+                <Text color="#C6E6F2" mb="20px">Edit Form</Text>
+                <EditForm id={id} closeEdit={closeDelete} />
+                <ModalFooter></ModalFooter>
             </ModalContent>
         </Modal>
     )

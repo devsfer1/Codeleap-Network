@@ -1,14 +1,7 @@
-import { Flex, Text, Container } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import { CreateForm } from '../Form/Create'
-import { CreateFormData } from '../../interfaces/mock'
 
-interface PagesHomeCreateProps {
-    handleCreatePost(data: CreateFormData): void
-}
-
-export function PagesHomeCreate(props: PagesHomeCreateProps): JSX.Element {
-
-    const { handleCreatePost } = props
+export function PagesHomeCreate(): JSX.Element {
 
     return (
         <Flex
@@ -24,7 +17,7 @@ export function PagesHomeCreate(props: PagesHomeCreateProps): JSX.Element {
             <Text mb="20px" color="#C6E6F2">
                 What's on your mind?
             </Text>
-            <CreateForm handleCreatePost={handleCreatePost} />
+            <CreateForm  />
         </Flex>
     )
 }
